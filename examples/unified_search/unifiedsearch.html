@@ -1,0 +1,18 @@
+<html>
+  <script src="unifiedsearch.js"></script>
+  <script>
+    function run(){
+      runsearch(document.getElementById("search").value);
+    }
+  </script>
+</html>
+<body>
+  <div class=searchbar>
+    <form method="POST">
+      <input type="text" name="search" id="search"/>
+      <input type="button" name="submit" onclick="run()"/>
+    </form>
+  </div>
+  <div>
+  </div>
+</body>
