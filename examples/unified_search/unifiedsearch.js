@@ -11,26 +11,29 @@ function BaseSearch(name){
     this.activated = true;
     this.name = name;
     this.search;
+    this.handler;
 }
 
 twitter_search = new BaseSearch("TwitterSearch");
 twitter_search.search = function(internalpage, keyword){
-    if(internalpage === undefined || internalpage < 0) internalpage = 0;
-    var url = "http://search.twitter.com/search.json?callback=?&rpp=" + page_limit/searches.length + 
-        "&page=" + internalpage + "&geocode=" + myLat + "," + myLong + "," + radius + units + "&q=" + keyword;
-    httpRequest = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Msxm12.XMLHTTP");
-    httpRequest.open("GET", url, true);
-    httpRequest.onreadystatechange = function(){
-        if(httpRequest.readyState == 4 && httpRequest.status == 200){
-            var json = eval('(' + httpRequest.responseText + ')');
-            var length = json.results.length;
-            for(var i=0; i < length; i++){
-                document.write("<div class=twitter><img src=" + twiticon + "style=\"float=left\""+
-                        "<span class=twitusername" + json.results[i].from_username + "</span>" + 
-                        "<br/><span class=twittext" + json.results[i].text + "</span>");
-            }
-        }
+    if(internalpage === undefined || internalpage < 1) internalpage = 1;
+    var url = "http://search.twitter.com/search.json?callback=handler&rpp=" + 
+        page_limit/searches.length + "&page=" + internalpage + "&geocode=" + myLat + "," + myLong + 
+        "," + radius + units + "&q=" + keyword;
+    scriptElement = document.createElement("SCRIPT");
+    scriptElement.type = "text/javascript";
+    scriptElement.src = url;
+    document.getElementsByTagName('head')[0].appendChild(scriptElement);
+}
+function handler(data){
+    var length = data.results.length;
+    var innerhtml = ""
+    for(var i = 0; i < length; i++){
+        innerhtml += "<div class=twitsearch><img style=\"float=left\" src=" + twiticon + "/>\n" + 
+            "<span class=twitusername>" + data.results[i].from_username + "</span><br/>\n" +
+            "<span class=twittext>" + data.results[i].text + "</span></div>\n";
     }
+    document.getElementById("view").innerHTML = innerhtml;
 }
 searches[0] = twitter_search;
 
