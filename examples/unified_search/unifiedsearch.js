@@ -17,7 +17,7 @@ function BaseSearch(name){
 twitter_search = new BaseSearch("TwitterSearch");
 twitter_search.search = function(internalpage, keyword){
     if(internalpage === undefined || internalpage < 1) internalpage = 1;
-    var url = "http://search.twitter.com/search.json?callback=handler&rpp=" + 
+    var url = "http://search.twitter.com/search.json?callback=twitter_search.handler&rpp=" + 
         page_limit/searches.length + "&page=" + internalpage + "&geocode=" + myLat + "," + myLong + 
         "," + radius + units + "&q=" + keyword;
     scriptElement = document.createElement("SCRIPT");
@@ -25,13 +25,14 @@ twitter_search.search = function(internalpage, keyword){
     scriptElement.src = url;
     document.getElementsByTagName('head')[0].appendChild(scriptElement);
 }
-function handler(data){
-    var length = data.results.length;
+twitter_search.handler = function(data){
     var innerhtml = ""
-    for(var i = 0; i < length; i++){
-        innerhtml += "<div class=twitsearch><img style=\"float=left\" src=" + twiticon + "/>\n" + 
-            "<span class=twitusername>" + data.results[i].from_username + "</span><br/>\n" +
-            "<span class=twittext>" + data.results[i].text + "</span></div>\n";
+    for(var i = 0, length = data.results.length; i < length; i++){
+        if(data.results[i].geo != null){
+            innerhtml += "<div class=twitsearch><img style=\"float=left\" src=" + twiticon + "/>\n" + 
+                "<span class=twitusername>" + data.results[i].from_username + "</span><br/>\n" +
+                "<span class=twittext>" + data.results[i].text + "</span></div>\n";
+        }
     }
     document.getElementById("view").innerHTML = innerhtml;
 }
