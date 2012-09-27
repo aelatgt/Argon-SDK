@@ -1,6 +1,6 @@
 var radius = 5; //how far away we're willing to go
 var units = "mi"; //units for radius
-var page_limit = 20; //only show 100 geolocs(? geospots?) for all searches
+var page_limit = 100; //only show 100 geolocs(? geospots?) for all searches
 var twiticon = "http://argonapps.gatech.edu/search/images/icon_twitter.png";
 var searches = new Array();
 var pagenumber = 1;
@@ -19,7 +19,9 @@ twitter_search.search = function(internalpage, keyword){
     if(internalpage === undefined || internalpage < 1) internalpage = 1;
     var url = "http://search.twitter.com/search.json?callback=twitter_search.handler&rpp=" + 
         page_limit/searches.length + "&page=" + internalpage + "&geocode=" + myLat + "," + myLong + 
-        "," + radius + units + "&q=" + keyword;
+        "," + radius + units;
+    if(keyword.charAt(0) == '#') url += "&tag=" + keyword.substring(1,keyword.length);
+    else if(keyword != '') url += "&q=" + keyword;
     scriptElement = document.createElement("SCRIPT");
     scriptElement.type = "text/javascript";
     scriptElement.src = url;
@@ -37,6 +39,7 @@ twitter_search.handler = function(data){
     document.getElementById("view").innerHTML = innerhtml;
 }
 searches[0] = twitter_search;
+
 
 function runsearch(keyword){
     length = searches.length;
