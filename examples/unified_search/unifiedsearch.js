@@ -25,25 +25,57 @@ twitter_search.search = function(internalpage, keyword){
     scriptElement = document.createElement("SCRIPT");
     scriptElement.type = "text/javascript";
     scriptElement.src = url;
+    scriptElement.id = "injected";
     document.getElementsByTagName('head')[0].appendChild(scriptElement);
 }
 twitter_search.handler = function(data){
-    var innerhtml = ""
+    scriptElement = document.getElementById('injected');
+    scriptElement.parentNode.removeChild(scriptElement);
+    var innerhtml = "";
     for(var i = 0, length = data.results.length; i < length; i++){
         if(data.results[i].geo != null){
-            innerhtml += "<div class=twitsearch><img style=\"float=left\" src=" + twiticon + "/>\n" + 
+            innerhtml += "<div class=twitsearch><img style=\"float:left\" src=" + twiticon + "/>\n" + 
                 "<span class=twitusername>" + data.results[i].from_username + "</span><br/>\n" +
                 "<span class=twittext>" + data.results[i].text + "</span></div>\n";
         }
     }
-    document.getElementById("view").innerHTML = innerhtml;
+    document.getElementById("view").innerHTML += innerhtml;
 }
 searches[0] = twitter_search;
 
+flickr_search = new BaseSearch("FlickrSearch");
+flickr_search.search = function(internalpage, keyword){
+    if(internalpage === undefined || internalpage < 1) internalpage = 1;
+    var url = "http://api.flickr.com/services/rest/?method=flickr.photos.search" + 
+        "&api_key=7f6d61c647e02da64b11e7d9da9cc904" + 
+        "&tags=" + keyword + "&per_page=20&page=0&format=json" + "&jsoncallback=flickr_search.handler" + 
+        "&has_geo=true&lat=" + myLat + "&lon=" + myLong + "&radius=" + radius + "&extras=owner_name,geo," +
+        "url_sq,url_m";
+    scriptElement = document.createElement("SCRIPT");
+    scriptElement.type = "text/javascript";
+    scriptElement.src = url;
+    scriptElement.id = 'injected';
+    document.getElementsByTagName('head')[0].appendChild(scriptElement);
+}
+flickr_search.handler = function(data){
+   scriptElement = document.getElementById('injected');
+   scriptElement.parentNode.removeChild(scriptElement);
+   var innerhtml = '';
+   for(var i = 0, length = data.photos.photo.length; i < length; i++){
+       innerhtml += "<div class=flickrsearch><img src=\"" + data.photos.photo[i].url_sq + "\"/></div>";
+   }
+   document.getElementById("view").innerHTML += innerhtml;
+}
+searches[1] = flickr_search;
+
+//Find better way to do this. Fuck you Flickr.
+function jsonFlickrApi(data){
+    flickr_search.handler(data);
+}
 
 function runsearch(keyword){
-    length = searches.length;
-    for(var i = 0; i < length; i++){
+    document.getElementById('view').innerHTML = "";
+    for(var i = 0, length = searches.length; i < length; i++){
         searches[i].search(pagenumber, keyword);
     }
 }
