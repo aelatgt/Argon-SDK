@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Argon</title>
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  <link rel="stylesheet" href="css/style.css" />
+  
+  <!-- scripts at bottom of page -->
+
+</head>
+<body class="homepage ">
+  <div class="item"><img src="argon.png"><div class="overlay"><strong>Tour Guide Demo</strong><br>This example displays text overlays at various GPS locations.</div></div>
+  <div class="item"><img src="side.png"><div class="overlay">test</div></div>
+  <div class="item"><img src="argon.png"><div class="overlay">test</div></div>
+  <div class="item"><img src="side.png"><div class="overlay">test</div></div>
+  <div class="item"><img src="side.png"><div class="overlay">test</div></div>
+  <div class="item"><img src="argon.png"><div class="overlay">test</div></div>
+  <div class="item"><img src="side.png"><div class="overlay">test</div></div>
+  <div class="item"><img src="argon.png"><div class="overlay">test</div></div>
+  
+  
+
+<script src="masonry.min.js"></script>
+<script>
+  window.onload = function() {
+    
+    var miniWall = new Masonry( document.getElementById('mini-container'), {
+      columnWidth: 50,
+      foo: 'bar'
+    });
+    
+    var wall = new Masonry( document.getElementById('container'), {
+      columnWidth: 240
+    });
+    
+  };
+</script>
+
+    
+    <footer id="site-footer">
+    </footer>
+    
+  </section> <!-- #content -->
+
+</body>
+</html>
