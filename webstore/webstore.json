@@ -1,0 +1,22 @@
+{
+  "name": "Google Mail",
+  "description": "Read your gmail",
+  "version": "1",
+  "url": "www.google.com",
+  "img": "/img/slider-1.jpg",
+  "permissions": [
+    "unlimitedStorage",
+    "notifications"
+  ]
+}
+{
+  "name": "testapp",
+  "description": "test",
+  "version": "2",
+  "url": "www.argon.gatech.edu",
+  "img": "/img/side.png",
+  "permissions": [
+    "unlimitedStorage",
+    "notifications"
+  ]
+}
