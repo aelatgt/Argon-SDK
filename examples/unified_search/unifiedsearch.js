@@ -18,8 +18,8 @@ twitter_search = new BaseSearch("TwitterSearch");
 twitter_search.search = function(internalpage, keyword){
     if(internalpage === undefined || internalpage < 1) internalpage = 1;
     var url = "http://search.twitter.com/search.json?callback=twitter_search.handler&rpp=" + 
-        page_limit/searches.length + "&page=" + internalpage + "&geocode=" + myLat + "," + myLong + 
-        "," + radius + units;
+        50 + "&page=" + internalpage + "&geocode=" + myLat + "%2C" + myLong + 
+        "%2C" + radius;
     if(keyword.charAt(0) == '#') url += "&tag=" + keyword.substring(1,keyword.length);
     else if(keyword != '') url += "&q=" + keyword;
     scriptElement = document.createElement("SCRIPT");
@@ -47,7 +47,7 @@ flickr_search = new BaseSearch("FlickrSearch");
 flickr_search.search = function(internalpage, keyword){
     if(internalpage === undefined || internalpage < 1) internalpage = 1;
     var url = "http://api.flickr.com/services/rest/?method=flickr.photos.search" + 
-        "&api_key=7f6d61c647e02da64b11e7d9da9cc904" + 
+        "&api_key=7e893653fffba0face9ae992aa2fdf12" + 
         "&tags=" + keyword + "&per_page=20&page=0&format=json" + "&jsoncallback=flickr_search.handler" + 
         "&has_geo=true&lat=" + myLat + "&lon=" + myLong + "&radius=" + radius + "&extras=owner_name,geo," +
         "url_sq,url_m";
