@@ -14,7 +14,7 @@ function BaseSearch(name){
     this.handler;
 }
 
-twitter_search = new BaseSearch("TwitterSearch");
+twitter_search = new BaseSearch("Twitter Search");
 twitter_search.search = function(internalpage, keyword){
     if(internalpage === undefined || internalpage < 1) internalpage = 1;
     var url = "http://search.twitter.com/search.json?callback=twitter_search.handler&rpp=" + 
@@ -42,8 +42,9 @@ twitter_search.handler = function(data){
     document.getElementById("view").innerHTML += innerhtml;
 }
 searches[0] = twitter_search;
+add_to_search_select(0);
 
-flickr_search = new BaseSearch("FlickrSearch");
+flickr_search = new BaseSearch("Flickr Search");
 flickr_search.search = function(internalpage, keyword){
     if(internalpage === undefined || internalpage < 1) internalpage = 1;
     var url = "http://api.flickr.com/services/rest/?method=flickr.photos.search" + 
@@ -67,6 +68,7 @@ flickr_search.handler = function(data){
    document.getElementById("view").innerHTML += innerhtml;
 }
 searches[1] = flickr_search;
+add_to_search_select(1);
 
 //Find better way to do this. Fuck you Flickr.
 function jsonFlickrApi(data){
@@ -76,8 +78,29 @@ function jsonFlickrApi(data){
 function runsearch(keyword){
     document.getElementById('view').innerHTML = "";
     for(var i = 0, length = searches.length; i < length; i++){
-        searches[i].search(pagenumber, keyword);
+        if(searches[i].activated) searches[i].search(pagenumber, keyword);
     }
+}
+
+function add_to_search_select(engine_ind){
+    search_select = document.getElementById('search_select');
+    search = document.createElement("DIV");
+    label = document.createElement("LABEL");
+    label.setAttribute("for", searches[engine_ind].name.substring(0,5));
+    label.innerHTML = searches[engine_ind].name;
+    search.appendChild(label);
+    input = document.createElement("INPUT");
+    input.name = searches[engine_ind].name.substring(0,5);
+    input.type = "checkbox";
+    input.value = engine_ind;
+    input.checked = "true";
+    input.setAttribute("onclick", "toggle_activated_search(" + engine_ind + ")");
+    search.appendChild(input);
+    search_select.appendChild(search);
+}
+
+function toggle_activated_search(engine_ind){
+    searches[engine_ind].activated = !searches[engine_ind].activated;
 }
 
 function next_page(){

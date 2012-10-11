@@ -10,16 +10,27 @@
   background: rgba(225,225,225,0.500)
 }
 
+#searchbar form {
+  width: 220px;
+  float: left;
+}
+
+#searchbar .clickover {
+  width: 10px;
+  height: 10px;
+  float: left;
+}
+
 .clickover {
   
 }
 
 .clickover form {
-  x: -1768px;
+  left: -1768px;
 }
 
 .clickover:hover form {
-  x: 0px;
+  left: 0px;
 }
 
 .twitusername {
