@@ -17,6 +17,7 @@
 #searchbar form {
   width: 220px;
   float: left;
+  margin-bottom: 0px;
 }
 
 #searchbar .clickover {
