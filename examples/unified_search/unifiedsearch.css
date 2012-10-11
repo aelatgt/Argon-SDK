@@ -3,6 +3,10 @@
   height: 1024px;
 }
 
+#search_select {
+  width: 100px;
+}
+
 #searchbar {
   width: 748px;
   height: 20px;
@@ -16,8 +20,8 @@
 }
 
 #searchbar .clickover {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   float: left;
 }
 
@@ -25,12 +29,19 @@
   
 }
 
+.clickover:hover {
+  background: rgba(180,180,180,0.500);
+}
+
 .clickover form {
+  position: relative;
   left: -1768px;
+  background: rgba(180,180,180,0.500);
 }
 
 .clickover:hover form {
   left: 0px;
+  top: 1px;
 }
 
 .twitusername {
