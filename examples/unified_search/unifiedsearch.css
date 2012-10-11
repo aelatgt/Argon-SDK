@@ -1,3 +1,27 @@
+#main-container {
+  width: 768px;
+  height: 1024px;
+}
+
+#searchbar {
+  width: 748px;
+  height: 20px;
+  padding: 10px;
+  background: rgba(225,225,225,0.500)
+}
+
+.clickover {
+  
+}
+
+.clickover form {
+  x: -1768px;
+}
+
+.clickover:hover form {
+  x: 0px;
+}
+
 .twitusername {
 
 }

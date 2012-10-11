@@ -1,15 +1,21 @@
 <html>
   <script src="unifiedsearch.js"></script>
+  <link rel="stylesheet" type="text/css" href="unifiedsearch.css"/>
 </html>
 <body>
   <div id="main-container">
-    <div id="css-container">
-      <div class=searchbar>
-        <form method="POST">
-          <input type="text" name="search" id="search"/>
-          <input type="button" name="submit" onclick="runsearch(document.getElementById('search').value)"/>
+    <div id="searchbar">
+      <form action="javascript:runsearch(document.getElementById('search').value)" method="GET">
+        <input type="text" name="search" id="search"/>
+        <input type="button" name="submit" onclick="runsearch(document.getElementById('search').value)"/>
+      </form>
+      <div class="clickover">
+        S
+        <form id="search_select" action="javascript:void(0)" method="GET">
         </form>
       </div>
+    </div>
+    <div id="css-container">
       <div id="view">
       </div>
     </div>
