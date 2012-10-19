@@ -4,6 +4,7 @@ var page_limit = 100; //only show 100 geolocs(? geospots?) for all searches
 var twiticon = "http://argonapps.gatech.edu/search/images/icon_twitter.png";
 var searches = new Array();
 var pagenumber = 1;
+var searchdata = new Array();
 
 var myLat = 33.777221, myLong = -84.396211;
 
@@ -12,6 +13,7 @@ function BaseSearch(name){
     this.name = name;
     this.search;
     this.handler;
+    this.expand;
 }
 
 twitter_search = new BaseSearch("Twitter Search");
@@ -34,7 +36,8 @@ twitter_search.handler = function(data){
     var innerhtml = "";
     for(var i = 0, length = data.results.length; i < length; i++){
         if(data.results[i].geo != null){
-            innerhtml += "<div class=twitsearch><img style=\"float:left\" src=" + twiticon + "/>\n" + 
+            innerhtml += "<div class=twitsearch id =\"" + searchdata.length + 
+                "\"><img style=\"float:left\" src=" + twiticon + "/>\n" + 
                 "<span class=twitusername>" + data.results[i].from_username + "</span><br/>\n" +
                 "<span class=twittext>" + data.results[i].text + "</span></div>\n";
         }
@@ -63,7 +66,8 @@ flickr_search.handler = function(data){
    scriptElement.parentNode.removeChild(scriptElement);
    var innerhtml = '';
    for(var i = 0, length = data.photos.photo.length; i < length; i++){
-       innerhtml += "<div class=flickrsearch><img src=\"" + data.photos.photo[i].url_sq + "\"/></div>";
+       innerhtml += "<div class=flickrsearch id =\"" + searchdata.length + "\"><img src=\"" + 
+           data.photos.photo[i].url_sq + "\"/></div>";
    }
    document.getElementById("view").innerHTML += innerhtml;
 }

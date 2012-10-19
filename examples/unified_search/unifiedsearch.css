@@ -24,6 +24,7 @@
   width: 20px;
   height: 20px;
   float: left;
+  z-index: 21;
 }
 
 .clickover {
@@ -42,7 +43,7 @@
 
 .clickover:hover form {
   left: 0px;
-  top: 1px;
+  top: 3px;
 }
 
 .twitusername {
