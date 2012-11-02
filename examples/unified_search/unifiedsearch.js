@@ -146,5 +146,6 @@ function grow(){
     else {
     var wrapper = document.querySelector('.measuring-wrapper');
         expand.style.height = wrapper.clientHeight + "px";
+        expand.style.padding = "5px";
     }
 }

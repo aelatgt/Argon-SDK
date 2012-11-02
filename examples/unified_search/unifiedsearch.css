@@ -32,13 +32,14 @@
 }
 
 .clickover:hover {
-  background: rgba(180,180,180,0.500);
+  background: rgba(180,180,180,1.00);
 }
 
 .clickover form {
   position: relative;
   left: -1768px;
-  background: rgba(180,180,180,0.500);
+  background: rgba(180,180,180,1.00);
+  z-index: 10;
 }
 
 .clickover:hover form {
@@ -54,7 +55,8 @@
     top: 40px;
     left: 5px;
     height: 0;
-    z-index:21;
+    z-index:2;
+    background: #F00;
 }
 
 .twitusername {
