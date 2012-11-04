@@ -48,22 +48,40 @@
 }
 
 #expand {
-    -o-transition: height .5s;
-    -webkit-transition: height .5s;
-    transition: height .5s;
-    position: absolute;
-    top: 40px;
-    left: 5px;
-    height: 0;
-    z-index:2;
-    background: #F00;
-    overflow: hidden;
+  -o-transition: height .5s;
+  -webkit-transition: height .5s;
+  transition: height .5s;
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  height: 0;
+  z-index:2;
+  background: #F00;
+  overflow: hidden;
 }
 
-.twitusername {
-
+.Twittsearch {
+  width: 700px;
+  height: 100px;
+  -webkit-border-radius: 25px;
+  -o-border-radius: 25px;
+  border-radius: 25px;
 }
 
-.twittext {
+.Twittusername {
+  font: normal normal 400 16px/18px "Helvetica Neue";
+  color: #3D7DC0;
+}
 
+.Twitttext {
+  font: normal normal 400 14px/18px "Helvatica Neue";
+  color: #000;
+}
+
+.Flicksearch {
+  width: 700px;
+  height: 100px;
+  -webkit-border-radius: 25px;
+  -o-border-radius: 25px;
+  border-radius: 25px;
 }

@@ -36,10 +36,10 @@ twitter_search.handler = function(data){
     var innerhtml = "";
     for(var i = 0, length = data.results.length; i < length; i++){
         if(data.results[i].geo != null){
-            innerhtml += "<div class=twitsearch id=Twtt" + i +
+            innerhtml += "<div class=Twittsearch id=Twtt" + i +
                 "\"><img style=\"float:left\" src=" + twiticon + "/>\n" +
-                "<span class=twitusername>" + data.results[i].from_username + "</span><br/>\n" +
-                "<span class=twittext>" + this.slugify(data.results[i].text) + "</span></div>\n";
+                "<span class=Twittusername>" + data.results[i].from_username + "</span><br/>\n" +
+                "<span class=Twitttext>" + this.slugify(data.results[i].text) + "</span></div>\n";
             localStorage.setItem("unified_search_" + "Twitt_" + i, JSON.stringify(data.results[i]));
         }
     }
@@ -76,7 +76,7 @@ flickr_search.handler = function(data){
     scriptElement.parentNode.removeChild(scriptElement);
     var innerhtml = '';
     for(var i = 0, length = data.photos.photo.length; i < length; i++){
-        innerhtml += "<div class=flickrsearch id =\"" + i + "\" onclick=\"javascript:" +
+        innerhtml += "<div class=Flicksearch id =\"" + i + "\" onclick=\"javascript:" +
            "flickr_search.expand(" + i + ")\"><img src=\"" +
            data.photos.photo[i].url_sq + "\"/></div>";
         localStorage.setItem("unified_search_" + "Flick_" + i, JSON.stringify(data.photos.photo[i]));
