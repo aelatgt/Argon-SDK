@@ -86,9 +86,10 @@ flickr_search.handler = function(data){
 flickr_search.expand = function(index){
     var data = JSON.parse(localStorage["unified_search_" + "Flick_" + index]);
     var wrapper = document.querySelector('.measuring-wrapper');
-    wrapper.innerHTML = "<div class=flickrexpand><img src=\"" + data.url_m + "\"/>" +
+    wrapper.style.visible = "false";
+    wrapper.innerHTML = "<div class=flickrexpand><img src=" + data.url_m + ">" +
         "<p>Title: " + data.title + "</p><p>Author: " + data.ownername + "</p></div>";
-    grow();
+    grow(); 
 }
 searches[1] = flickr_search;
 add_to_search_select(1);
@@ -142,10 +143,12 @@ function grow(){
     var expand = document.getElementById('expand');
     if(expand.clientHeight) {
         expand.style.height = 0;
+        expand.style.padding= 0;
     }
     else {
-    var wrapper = document.querySelector('.measuring-wrapper');
+        var wrapper = document.querySelector('.measuring-wrapper');
         expand.style.height = wrapper.clientHeight + "px";
         expand.style.padding = "5px";
+        wrapper.style.visible = "true";
     }
 }
