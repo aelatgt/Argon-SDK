@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Argon Alpha Alpha</title>
+        <link rel="stylesheet" href="jslog.css" />
+        <link rel="apple-touch-icon" href="assets/sample_icon_57x57.png" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+        <meta name="arenabled" />
+        <script>
+            var myAppController =
+            {
+                geoObject : null,
+                
+                cube : null,
+                
+                createContent : function()
+                {
+                    var cubeGeometry, cubeMaterial;
+                    cubeGeometry = new THREE.CubeGeometry(100, 100, 100, 2, 2, 2);
+                    cubeMaterial = new THREE.MeshLambertMaterial({ color: 0xFFFF00, shading: THREE.FlatShading, overdraw: true });
+                    
+                    cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+                    cube.position.x = 0;
+                    cube.position.y = 0;
+                    cube.position.z = 0;
+                    cube.scale.x = 1;
+                    cube.scale.y = 1;
+                    cube.scale.z = 1;
+                    
+                    var ori = new THREE.Object3D();
+                    ori.position.x = 0;
+                    ori.position.y = 0;
+                    ori.position.z = 500.0;
+                    ori.scale.x = 1;
+                    ori.scale.y = 1;
+                    ori.scale.z = 1;
+                    
+                    ori.add (cube);
+                
+                    geoObject = ARGON.createGeoObject(33.463761,-84.232223, 0);
+                    geoObject.add( cube );
+                    
+                    ARGON.World.add( geoObject );
+                    
+                    //ARGON.World.add ( ori);
+                    
+                    
+                },
+                
+                onArgonReady : function()
+                {
+                    myAppController.createContent();
+                    ARGON.loadDataset("http://argon.gatech.edu/demos/StonesAndChips.xml");
+                },
+                
+                onDataSetLoaded : function(event)
+                {
+                    var dataset, stonesTarget, trackedObject;
+                    var redCube, redMaterial, redGeometry;
+                    
+                    dataset      = event.dataset;
+                    console.log(dataset);
+                    stonesTarget = dataset.targets["stones"];
+                    
+                    if (stonesTarget)
+                    {
+                        trackedObject        = new ARGON.TrackedObject();
+                        trackedObject.name   = "AttachedToStonesTarget"; 
+                        trackedObject.setTarget( stonesTarget );
+                        
+                        redGeometry = new THREE.CubeGeometry(100, 100, 100, 2, 2, 2);
+                        redMaterial = new THREE.MeshLambertMaterial({ color: 0xFF0000, shading: THREE.FlatShading, overdraw: true });
+                        redCube = new THREE.Mesh( redGeometry, redMaterial );
+                        
+                        console.log(trackedObject);
+                        
+                        var divEl = document.createElement('div');
+                        divEl.id = "cssContent";
+                        divEl.style.width = "100px";
+                        divEl.style.height = "100px";
+                        divEl.style.backgroundColor = "green";
+                        divEl.style.position = 'absolute';
+                        divEl.style.fontSize = "16px";
+                        divEl.style.WebkitTransform = "scale3d(-1, 1, 1)";
+                        divEl.innerText = "AR + HTML5";
+                        
+                        var cssObject;
+                        cssObject = new THREE.CSSObject(divEl); 
+                        cssObject.width = 100;
+                        cssObject.height = 100;
+                        cssObject.position.x = 0.0;
+                        cssObject.position.y = 0.0;
+                        cssObject.position.z = -1000.0;
+
+                        trackedObject.add ( cssObject );
+                        trackedObject.add( redCube );
+                    }
+                }
+            };
+            
+            document.addEventListener("AR.DataSetLoadedEvent", myAppController.onDataSetLoaded);
+			document.addEventListener("AR.DataSetActivatedEvent", myAppController.onDataSetActivated);
+			document.addEventListener("AR.ArgonReadyEvent", myAppController.onArgonReady);
+			
+        </script>
+    </head>
+    <body>
+        <script src="http://argon.gatech.edu/argon_o.js"></script>
+    </body>
+    
+    
+</html>            
