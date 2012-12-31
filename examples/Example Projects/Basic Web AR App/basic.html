@@ -43,6 +43,9 @@
                     
                     ARGON.World.add( geoObject );
                     
+                    //ARGON.World.add ( ori);
+                    
+                    
                 },
                 
                 onArgonReady : function()
@@ -57,6 +60,7 @@
                     var redCube, redMaterial, redGeometry;
                     
                     dataset      = event.dataset;
+                    console.log(dataset);
                     stonesTarget = dataset.targets["stones"];
                     
                     if (stonesTarget)
@@ -68,6 +72,8 @@
                         redGeometry = new THREE.CubeGeometry(100, 100, 100, 2, 2, 2);
                         redMaterial = new THREE.MeshLambertMaterial({ color: 0xFF0000, shading: THREE.FlatShading, overdraw: true });
                         redCube = new THREE.Mesh( redGeometry, redMaterial );
+                        
+                        console.log(trackedObject);
                         
                         var divEl = document.createElement('div');
                         divEl.id = "cssContent";
