@@ -1,6 +1,8 @@
 #main-container {
   width: 768px;
   height: 1024px;
+  position: relative;
+  top: 50px;
 }
 
 #search_select {
@@ -11,6 +13,7 @@
   width: 748px;
   height: 20px;
   padding: 10px;
+  margin: 0px;
   background: rgba(225,225,225,0.500)
 }
 
