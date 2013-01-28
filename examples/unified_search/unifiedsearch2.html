@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Unified Search</title>
+        <link rel="stylesheet" href="jslog.css" />
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+                
+                <script>
+                    
+                    // AR Three JS 
+                    
+                    var camera, scene, glRenderer, glContainer, cssRenderer, cssContainer;
+                    var stats;
+                    var clock;
+                    
+                    var screenWidth, screenHeight;
+                    
+                    var rootNode, glCube, childCube, pointLight;
+                    var cssObject;
+                    
+                    var geometry;
+                    
+                    function start() {
+                        init();
+                        animate();
+                    }
+                    
+                    function init() {
+                        
+                        clock = new THREE.Clock();            
+                        glContainer = document.getElementById('gl-container');
+                        
+                        var mainContainer = document.getElementById('main-container');
+                        var mainStyle = window.getComputedStyle(mainContainer);
+                        
+                        screenWidth     = parseInt(mainStyle.getPropertyValue('width'));
+                        screenHeight    = parseInt(mainStyle.getPropertyValue('height'));
+                        
+                        scene = new THREE.Scene();
+                        
+                        // Camera
+                        camera = new THREE.PerspectiveCamera(35, screenWidth / screenHeight, 0.05, 10000);
+                        camera.position.set(0, 0, 0);
+                        camera.lookAt(new THREE.Vector3(0, 0, 1));                        
+                        scene.add(camera);
+                        
+                        // Object3D Container
+                        //rootNode = new THREE.Object3D();
+                        //rootNode.position.x = 0.0;
+                        //rootNode.position.y = 0.0;
+                        //rootNode.position.z = 1600.0;
+                        //scene.add(rootNode);          
+
+                        // Cubes
+                        /*geometry = new THREE.CubeGeometry(100, 100, 100, 2, 2, 2);
+                        //var cube_material = new THREE.MeshLambertMaterial({ color: 0x510033, shading: THREE.FlatShading, overdraw: true });
+                        //glCube = new THREE.Mesh(geometry, cube_material);
+                        //glCube.position.x = 0;
+                        //glCube.position.y = 0.0;
+                        
+                        // cubes origin is at its center, so we must translate it
+                        // in z by 50 to make it appear like it is stuck to the target
+                        //glCube.position.z = 50.0;
+                        
+                        //rootNode.add(glCube);
+
+                        //var cube_material2 = new THREE.MeshLambertMaterial({ color: 0xFFFF00, shading: THREE.FlatShading, overdraw: true });                        
+                        
+                        //childCube = new THREE.Mesh(geometry, cube_material2);
+                        //childCube.position.x = -150.0;
+                        //childCube.position.y = 0.0;
+                        //childCube.position.z = 0.0;
+                        
+                        //glCube.add(childCube);
+                        
+                        //var axisHelper = new THREE.AxisHelper();
+                        //childCube.add(axisHelper);                        
+                        
+                        // Lights
+                        //scene.add(new THREE.AmbientLight(0x555555));
+                        
+                        //var directionalLight = new THREE.DirectionalLight(Math.random() * 0xffffff);
+                        //directionalLight.position.x = 1;
+                        directionalLight.position.y = 1;
+                        directionalLight.position.z = 0.5;
+                        directionalLight.position.normalize();
+                        scene.add(directionalLight);
+                        
+                        pointLight = new THREE.PointLight(0xffffff, 1);
+                        pointLight.position.x = 0;
+                        pointLight.position.y = 300;
+                        pointLight.position.z = -200;
+                        scene.add(pointLight);*/
+                        
+                        //Three WebGLRenderer
+                        glRenderer = new THREE.WebGLRenderer();
+                        glRenderer.setSize(screenWidth, screenHeight);
+                        glContainer.appendChild(glRenderer.domElement);
+                        
+                        //CSSRenderer:
+                        cssContainer = document.getElementById('css-container');
+                        var params = {container:cssContainer};
+                        cssRenderer = new THREE.CSSRenderer(params);
+                        
+                        //CSS ObjectDIV:
+                        /*var placeholder = document.createElement('div');
+                        placeholder.style.width = "100px";
+                        placeholder.style.height = "100px";
+                        placeholder.style.backgroundColor = "#FF0000";
+                        placeholder.style.position = 'absolute';
+                        placeholder.style.fontSize = "16px";
+                        placeholder.style.WebkitTransform = "scale3d(-1, 1, 1)";                        
+                         placeholder.innerText = "AR + HTML5";
+                        cssObject = new THREE.ObjectDIV(placeholder); 
+                        cssObject.width = 100;
+                        cssObject.height = 100;
+                        cssObject.position.x = 0.0;
+                        cssObject.position.y = 0.0;
+                        cssObject.position.z = 100.0;
+                        
+                        rootNode.add(cssObject);*/
+                    }
+                    
+                    function setupStats() {
+                        //Stats              
+                        glContainer = document.getElementById('gl-container');                        
+                         stats = new Stats();
+                         stats.domElement.style.position = 'absolute';
+                         stats.domElement.style.top = '0px';
+                         glContainer.appendChild(stats.domElement);                        
+                    }
+                    
+                    function animate() {
+                        requestAnimationFrame(animate);
+                        render();
+                        //stats.update();
+                    }
+                    
+                    function render() { 
+                        var delta = clock.getDelta();                        
+                        cssRenderer.render(scene, camera);
+                        glRenderer.render(scene, camera);
+                    }
+                    
+                    // VuforiaJS 
+                    
+                    function onCameraStart(cameraCalibration) {
+                        alert(cameraCalibration);
+                        camera.setLens(cameraCalibration['focalLengthVertical'], cameraCalibration['frameSizeVertical']);
+                        alert(cameraCalibration['focalLengthVertical']);
+                    }
+                    
+                    function onTrackedFrame(trackables) {
+                        for (var i=0, len = trackables.length; i < len; i++)
+                        {
+                            var trackable = trackables[i];
+                            
+                            var targetName = trackable.targetName;
+                        
+                            var mvm = trackable.modelViewMatrix;
+                            
+                            var mat = new THREE.Matrix4(mvm[0], mvm[1], mvm[2], mvm[3], mvm[4], mvm[5], mvm[6], mvm[7], mvm[8], mvm[9], mvm[10], mvm[11], mvm[12], mvm[13], mvm[14], mvm[15]);
+                            
+                            var pos = new THREE.Vector3();
+                            pos.setPositionFromMatrix(mat);
+                            
+                            var rot = new THREE.Vector3();
+                            rot.setRotationFromMatrix(mat);
+                            
+                            rootNode.position.set(pos.x, pos.y, pos.z);
+                            rootNode.rotation.set(rot.x, rot.y, rot.z);
+                        }
+                    }
+                    
+                    function onFrame() {
+                        rootNode.position.set(0.0, 0.0, 1600.0);
+                        rootNode.rotation.set(0.0, 0.0, 0.0);
+                    }
+
+                    //Unifired Search
+                    var radius = 5;
+                    var units = "mi";
+                    var page_limit = 100;
+                    var searches = new Array();
+                    var pagenumber = 0;
+
+                    
+
+                    function run_search(){
+                      
+                    }
+                    
+                    </script>
+                
+                <style type="text/css">
+                    body
+                    {
+                        background: rgba(0, 0, 0, 0);
+                        color: #fff;
+                        padding: 0;
+                        margin: 0;
+                        overflow: hidden;
+                        text-align: center;
+                    }
+                    canvas
+                    {
+                        pointer-events: none;
+                        z-index: 10;
+                    }
+                    #log
+                    {
+                        position: absolute;
+                        top: 50px;
+                        text-align: left;
+                        display: block;
+                        z-index: 100;
+                    }
+                    
+                    #main-container
+                    {
+                        background: rgba(0, 0, 0, 0);
+                        width: 320px;
+                        height: 480px;
+                        margin: 0 auto;
+                        overflow: hidden;
+                        top: 0px;
+                    }
+                    
+                    #css-container
+                    {
+                        position: absolute;
+                        overflow: hidden;
+                        z-index: 20;
+                        width: 320px;
+                        height: 480px;
+                        top: 0px;
+                        -webkit-transform-style: preserve-3d;
+                    }
+                    
+                    @media screen and (min-width: 768px)
+                    {
+                        #main-container
+                        {
+                            width: 768px;
+                            height: 1024px;
+                        }
+
+                        #css-container
+                        {
+                            width: 768px;
+                            height: 1024px;
+                        }                        
+                    }
+                    
+                    </style>
+                </head>
+    <body>
+        <div id="main-container">
+            <div id="css-container">     
+            </div>
+            <div id="gl-container">
+            </div>
+        </div>
+       
+        <!--//*These URLs may change in future versions of the beta*//-->
+
+        <script src="http://argon.gatech.edu/Three.js" onload="start()"></script>
+        <script src="http://argon.gatech.edu/Stats.js" onload="setupStats()"></script>        
+        <script src="http://argon.gatech.edu/argon.js"></script>         
+
+    </body>
+</html>            

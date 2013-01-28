@@ -1,0 +1,22 @@
+#jslog {
+	position: 			fixed;
+	bottom: 			0px;	
+	overflow-y: 		scroll;	
+	color: 				rgba(255, 255, 255, 1.0);
+	background-color: 	rgba(0, 0, 0, 0.7);
+	font-family: 		Monaco, Helvetica, Arial, sans-serif;
+	font-size: 			12px;
+}
+
+div.jslog_outBlock {
+	display: 		block;
+	width: 			100%;
+	border: 		solid;
+	border-width: 	1px;
+	border-color:   black;;
+	padding: 4px;
+}
+
+div.jslog_errorBlock {
+	color: red;
+}
