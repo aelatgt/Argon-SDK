@@ -1,8 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Argon Alpha Alpha</title>
-        <link rel="stylesheet" href="jslog.css" />
+        <title>Argon Basic AR Web App</title>
         <link rel="apple-touch-icon" href="assets/sample_icon_57x57.png" />
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
@@ -24,9 +23,9 @@
                     cube.position.x = 0;
                     cube.position.y = 0;
                     cube.position.z = 0;
-                    cube.scale.x = 1;
-                    cube.scale.y = 1;
-                    cube.scale.z = 1;
+                    cube.scale.x = 10;
+                    cube.scale.y = 10;
+                    cube.scale.z = 10;
                     
                     var ori = new THREE.Object3D();
                     ori.position.x = 0;
@@ -35,17 +34,11 @@
                     ori.scale.x = 1;
                     ori.scale.y = 1;
                     ori.scale.z = 1;
-                    
-                    ori.add (cube);
                 
-                    geoObject = ARGON.createGeoObject(33.463761,-84.232223, 0);
+                    geoObject = ARGON.createGeoObject(33.7772722222222,-84.3895361111111, 0);
                     geoObject.add( cube );
                     
                     ARGON.World.add( geoObject );
-                    
-                    //ARGON.World.add ( ori);
-                    
-                    
                 },
                 
                 onArgonReady : function()
@@ -60,7 +53,6 @@
                     var redCube, redMaterial, redGeometry;
                     
                     dataset      = event.dataset;
-                    console.log(dataset);
                     stonesTarget = dataset.targets["stones"];
                     
                     if (stonesTarget)
@@ -72,17 +64,15 @@
                         redGeometry = new THREE.CubeGeometry(100, 100, 100, 2, 2, 2);
                         redMaterial = new THREE.MeshLambertMaterial({ color: 0xFF0000, shading: THREE.FlatShading, overdraw: true });
                         redCube = new THREE.Mesh( redGeometry, redMaterial );
-                        
-                        console.log(trackedObject);
+                        redCube.position.z = 50.0;
                         
                         var divEl = document.createElement('div');
                         divEl.id = "cssContent";
                         divEl.style.width = "100px";
                         divEl.style.height = "100px";
-                        divEl.style.backgroundColor = "green";
+                        divEl.style.backgroundColor = "red";
                         divEl.style.position = 'absolute';
                         divEl.style.fontSize = "16px";
-                        divEl.style.WebkitTransform = "scale3d(-1, 1, 1)";
                         divEl.innerText = "AR + HTML5";
                         
                         var cssObject;
@@ -91,9 +81,10 @@
                         cssObject.height = 100;
                         cssObject.position.x = 0.0;
                         cssObject.position.y = 0.0;
-                        cssObject.position.z = -1000.0;
+                        cssObject.position.z = 50.0;
+                        
+                        redCube.add(cssObject);
 
-                        trackedObject.add ( cssObject );
                         trackedObject.add( redCube );
                     }
                 }
