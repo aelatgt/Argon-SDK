@@ -1,0 +1,182 @@
+
+<html>
+    <head>
+    <!--//
+    
+        @app            Argon2 MultiMarker Demo
+        
+        @author         hafez 
+        
+        @description    This sample code shows how to access and process Vision Tracking 
+                        data using multiple frame markers and TrackedObjects as well as 
+                        integrating with the Argon2 run/render loop
+                        
+        @discussion     Updating the DOM with rapidly changing data every frame (as is 
+                        done in this example) results in poor performance. The goal of 
+                        this sample is to show how to hook into the run/render and 
+                        retrieving information about target.
+                        
+                        Uses FrameMarkers 24,25,& 26
+                        
+                        N.B. When computing the distance, remember that the size you define
+                        when creating a FrameMarker affects the effective position.
+    
+    //-->
+    <title>Multi Marker Demo</title>
+    <script>
+    
+        var app = {
+        
+            trackedObject24 : null,
+            trackedObject25 : null,
+            trackedObject26 : null,
+            
+            _createElement : function(color, text)
+            {
+                var divEl = document.createElement("div");
+                divEl.style.width   = "50px";
+                divEl.style.height  = "50px";
+                divEl.style.backgroundColor = color;
+                divEl.style.fontSize = "5px";
+                divEl.style.fontFamily = "Arial";
+                divEl.innerText = text;
+                divEl.style.overflow = "visible";
+                
+                return divEl;
+            }, 
+            
+            _createLabelCssObject : function(el)
+            {
+                var cssObject = new THREE.CSSObject(el);
+                cssObject.width = 50;
+                cssObject.height = 50;
+                cssObject.position.x = 0.0;
+                cssObject.position.y = 0.0;
+                cssObject.position.z = 0.0;
+                return cssObject;
+            },
+            
+            _createTrackedObjectWithTarget : function(target)
+            {
+                var trackedObject;
+                trackedObject = new ARGON.TrackedObject();
+                if (target != null)
+                    trackedObject.setTarget(target); 
+                return trackedObject;
+            },
+            
+            _createLabeledMarker : function(markerID, color)
+            {
+                var frameMarker;
+                var trackedObject;
+                var label;
+                var cssObject;
+                
+                /** create a FrameMarker **/
+                frameMarker   = new ARGON.FrameMarkerTarget (markerID, "FrameMarker"+markerID, 50);
+                
+                /** create a TrackedObject **/
+                trackedObject = new ARGON.TrackedObject();
+                
+                /** bind TrackedObject to FrameMarkerTarget **/
+                trackedObject.setTarget(frameMarker);
+                
+                /** create a default label **/
+                label       = app._createElement(color, "FrameMarker "+markerID);
+                
+                /** create a CSSObject container with the label **/
+                cssObject   = app._createLabelCssObject(label);
+                
+                /** adding a custom property to the trackedObject */
+                trackedObject.label = label;
+                
+                /** add the CSSObject to the TrackedObject, centered on the Target **/
+                trackedObject.add(cssObject);
+                
+                return trackedObject;
+            },
+            
+            _getTransformString : function(obj3d)
+            {
+                var pv, rv, sv;
+                
+                var decomposed = obj3d.matrix.decompose();
+                pv = decomposed[0];
+                rv = decomposed[1];
+                sv = decomposed[2];
+                    
+                str = " { " + pv.x.toFixed(2) + "," + pv.y.toFixed(2) + "," + pv.z.toFixed(2) + "}\n"
+                      + " { " + rv.x.toFixed(2) + "," + rv.y.toFixed(2) + "," + rv.z.toFixed(2) + "}\n" 
+                      + " { " + sv.x.toFixed(2) + "," + sv.y.toFixed(2) + "," + sv.z.toFixed(2) + "}\n";
+                    
+                return str;
+            },
+            
+            /** Our custom method which will be called every frame **/
+            onRender: function(time) {
+            
+                /** update content elements with the latest TrackedObject values **/
+                
+                if (trackedObject24 != null)
+                {
+                    var obj3d;
+                    obj3d = trackedObject24.threeObject3D;   
+                    trackedObject24.label.innerText = app._getTransformString(obj3d);
+                }
+                
+                if (trackedObject25 != null)
+                {
+                    var to24;
+                    var to25;
+                    
+                    /** Matrix.decompose returns an array containing
+                     *  the translation as vector, rotation as quaternion,
+                     *  and scale as vector.  
+                     *  
+                     *  distanceTo is defined on THREE.Vector3.
+                     */
+                    
+                    to24 = trackedObject24.threeObject3D.matrix.decompose()[0];
+                    to25 = trackedObject25.threeObject3D.matrix.decompose()[0];
+                    
+                    var dist = to24.distanceTo(to25);
+                    
+                    trackedObject25.label.innerText = "\n\n Distance from Red = " +  dist.toFixed(4);
+                    
+                }
+                
+                /** retrieving the deviceAttitude **/
+                
+                var da = ARGON.deviceAttitude;
+                var str =   da[0] + " " + da[1] + " " + da[2] + " " + da[3] + "\n "
+                           +da[4] + " " + da[5] + " " + da[6] + " " + da[7] + "\n "
+                           +da[8] + " " + da[9] + " " + da[10] + " " + da[11] + "\n "
+                           +da[12] + " " + da[13] + " " + da[14] + " " + da[15] + "\n ";
+                           
+                trackedObject26.label.innerText = str;
+            },
+          
+            onArgonReady: function() {
+                
+                trackedObject24 = app._createLabeledMarker(24, "green");
+                trackedObject25 = app._createLabeledMarker(25, "blue");
+                trackedObject26 = app._createLabeledMarker(26, "red");
+                
+                /********************************************************
+                 *  Hooking into the render loop
+                 * 
+                 *  When defined, ARGON.onRender is called every 
+                 *  frame immediately before rendering
+                 ********************************************************/
+                ARGON.onRender = app.onRender;
+            }
+        };
+
+        document.addEventListener("AR.ArgonReadyEvent", app.onArgonReady);
+			
+        </script>
+    </head>
+    <body>
+        <script src="http://argon.gatech.edu/argon_o.js"></script>
+    </body>
+</html>
