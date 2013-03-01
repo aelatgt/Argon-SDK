@@ -59,6 +59,8 @@
                     {
                         trackedObject        = new ARGON.TrackedObject();
                         trackedObject.name   = "AttachedToStonesTarget"; 
+                        
+                        trackedObject.autoHideAfterFrames = 1;
                         trackedObject.setTarget( stonesTarget );
                         
                         redGeometry = new THREE.CubeGeometry(100, 100, 100, 2, 2, 2);
@@ -82,6 +84,7 @@
                         cssObject.position.x = 0.0;
                         cssObject.position.y = 0.0;
                         cssObject.position.z = 50.0;
+                        cssObject.visible = false;
                         
                         redCube.add(cssObject);
 
