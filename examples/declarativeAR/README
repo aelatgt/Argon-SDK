@@ -1,0 +1,5 @@
+This is primarily a demo for the experienceParser.js script, that allows people to author declarative AR experiences using ARGON. The idea stems from the AR markup, like HTML markup, UI markup, etc, can be made declarative for easy authoring. The perf costs due to one level of indirection are not that great, and, in any case, it is a good tool to prototype ones experiences.
+
+The experienceChild.xml shows the declarative AR markup. It's a bit arbitrary, but it seems to be a good start, and can always be added to/formalized.
+
+The basic2.html file showcases how you hook up your actions with the callbacks received by the experienceParser.js script.
