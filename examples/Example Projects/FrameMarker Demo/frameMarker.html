@@ -1,0 +1,38 @@
+<html>
+    <head>
+    <title>Frame Marker Demo</title>
+    <script>
+    
+        var myAppController = {
+          
+            onArgonReady: function() {
+                var frameMarker     = new ARGON.FrameMarkerTarget(24, "MyFrameMarker", 50);
+
+                var trackedObject   = new ARGON.TrackedObject();
+                trackedObject.setTarget(frameMarker);
+                
+                var divEl = document.createElement("div");
+                divEl.style.width = "50px";
+                divEl.style.height = "50px";
+                divEl.style.backgroundColor = "green";
+                divEl.style.fontSize = "10px";
+                divEl.innerText = "Frame Marker 024";
+                
+                var cssObject = new THREE.CSSObject(divEl);
+                cssObject.width = 50;
+                cssObject.height = 50;
+                cssObject.position.x = 0.0;
+                cssObject.position.y = 0.0;
+                cssObject.position.z = 0.0;                
+                trackedObject.add(cssObject);
+            }
+        };
+
+        document.addEventListener("AR.ArgonReadyEvent", myAppController.onArgonReady);
+			
+        </script>
+    </head>
+    <body>
+        <script src="http://argon.gatech.edu/argon_o.js"></script>
+    </body>
+</html>

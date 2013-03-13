@@ -1,0 +1,50 @@
+<html>
+    <head>
+    <title>GeoSpot Demo</title>
+    
+    <script>
+    
+        var myAppController = {
+            
+            onArgonReady : function()
+            {
+                /**
+                 *  @main       GeoSpotDemo
+                 *  @authors    hafez, bryjeep
+                 *  @license    Images are Copyright Scott Robertson / http://imtc.gatech.edu
+                 *
+                 *  @description A simple geospot example using relative urls
+                 *  
+                 *  @details
+                 *
+                 *  GeoSpotPanorama conforms to W3C specifications for URI parsing.
+                 *  If you are using an absolute URL, you must include the protocol (e.g. http:// or https://).
+                 *  Relative URLs are also supported, (e.g. "../assets/filename.png" and/or "/assets")
+                 *  Ordering is Right, Left, Top, Bottom, Front, Back.  See the GeoSpotPanorama documentation for details
+                 */
+                var geoSpotPanoramaURLs = [ "assets/Centennial_Olympic_Park_Fountain_Right.png",
+                                            "assets/Centennial_Olympic_Park_Fountain_Left.png",
+                                            "assets/Centennial_Olympic_Park_Fountain_Top.png",
+                                            "assets/Centennial_Olympic_Park_Fountain_Bottom.png",
+                                            "assets/Centennial_Olympic_Park_Fountain_Front.png",
+                                            "assets/Centennial_Olympic_Park_Fountain_Back.png" ];
+                                            
+                var geoSpotPanorama = new AR.GeoSpotPanorama(geoSpotPanoramaURLs);
+                
+                var i;
+                var len = geoSpotPanoramaURLs.length;
+                for(i=0;i<len;i++)
+                    console.log(geoSpotPanoramaURLs[i]);
+            }
+        }
+        
+        document.addEventListener("AR.ArgonReadyEvent", myAppController.onArgonReady);
+        
+    </script>
+    
+    </head>
+    <body>
+    
+    <script src="http://argon.gatech.edu/argon_o.js"></script>
+    </body>
+</html>
