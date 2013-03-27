@@ -47,9 +47,6 @@ twitter_search.handler = function(data){
 }
 twitter_search.expand = function(){
 }
-twitter_search.slugify = function(str){
-    return str.substring(20) + "...";
-}
 searches[0] = twitter_search;
 add_to_search_select(0);
 

@@ -1,8 +1,6 @@
 #main-container {
   width: 768px;
   height: 1024px;
-  position: relative;
-  top: 50px;
 }
 
 #search_select {
@@ -89,10 +87,11 @@
 .Flickr {
   width: 300px;
   height: 110px;
-  -webkit-border-radius: 25px;
-  -o-border-radius: 25px;
-  border-radius: 25px;
+  -webkit-border-radius: 0 25px 25px 25px;
+  -o-border-radius: 0 25px 25px 25px;
+  border-radius: 0 25px 25px 25px;
   background: #DDD;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .Flickr img {
