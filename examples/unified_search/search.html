@@ -1,0 +1,45 @@
+<html>
+  <head>
+  <title>Unified Search</title>
+  <link rel="stylesheet" type="text/css" href="unifiedsearch.css"/>
+  <link rel="stylesheet" type="text/css" href="jslog.css"/>
+  <script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars.runtime-1.0.rc.1.js"></script>
+  <script src="templates.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <script> 
+    var controller = {
+      
+    };
+
+    //document.addEventListener("AR.ArgonReadyEvent", controller.createUI);
+  </script>
+  </head>
+  <body>
+    <div id="main-container">
+    <div id="searchbar">
+      <form action="javascript:runsearch(document.getElementById('search').value)" method="GET">
+        <input type="text" name="search" id="search"/>
+        <input type="button" name="submit" onclick="runsearch(document.getElementById('search').value)"/>
+      </form>
+      <div class="clickover">
+        S
+        <form id="search_select" action="javascript:void(0)" method="GET">
+        </form>
+      </div>
+      <div id="expand" onclick="javascript:grow()">
+        <div class="measuring-wrapper">
+
+        </div>
+      </div>
+    </div>
+    <div id="css-container">
+      <div id="view">
+      </div>
+      <script src="jslog.js"></script>
+    </div>
+    <div id="gl-container">
+    </div>
+    <script src="http://argon.gatech.edu/argon_o.js"></script>
+  </body>
+</html>

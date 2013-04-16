@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Argon Basic AR Web App</title>
+        <link rel="apple-touch-icon" href="assets/sample_icon_57x57.png" />
+        <link rel="stylesheet" type="text/css" href="jslog.css"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+        <meta name="arenabled" />
+        <script>
+            var myAppController =
+            {
+                geoObject : null,
+                
+                cube : null,
+                
+                createContent : function()
+                {
+                    
+                    
+                    var div = document.createElement("div");
+                    div.style.backgroundColor = "#FF0000";
+                    var myLoc = ARGON.geolocation.getLLA();
+                    div.innerText = "(" + myLoc.latitude + ", " + myLoc.longitude + ")";
+                    
+                    var cssObj = new THREE.CSSObject(div);
+                    cssObj.width = 200;
+                    cssObj.height = 200;
+                    cssObj.position.z = -1000;
+                    
+                    ARGON.World.add(cssObj);
+
+                },
+                
+                onArgonReady : function()
+                {
+                    myAppController.createContent();
+                },
+                
+            };
+            
+			document.addEventListener("AR.ArgonReadyEvent", myAppController.onArgonReady);
+			
+        </script>
+    </head>
+    <body>
+        <script src="http://argon.gatech.edu/argon_o.js"></script>
+        <script src="jslog.js></script>
+    </body>
+    
+    
+</html>            

@@ -1,0 +1,26 @@
+<html>
+  <head>
+  <link rel="stylesheet" type="text/css" href="unifiedsearch.css"/>
+  <link rel="stylesheet" type="text/css" href="jslog.css"/>
+  <script src="search.js" type="text/javascript"></script>
+  <script src="handlebars.runtime.js"></script>
+  <script src="templates.js"></script>
+  <script src="FlickrSearch.js" type="text/javascript" onload="addSearch(flickr_search))"></script>
+  <script> 
+    var controller = {
+        createUI : function(){
+            addSearch(flickr_search);
+            runsearch("blah");
+            //JSLOG.log(Handlebars.templates['Flickr']);
+        }
+    };
+    
+    document.addEventListener("AR.ArgonReadyEvent", controller.createUI);
+  </script>
+  </head>
+  <body>
+    
+    <script src="jslog.js"></script>
+    <script src="http://argon.gatech.edu/argon_o.js"></script>
+  </body>
+</html>
