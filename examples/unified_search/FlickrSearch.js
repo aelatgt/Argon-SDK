@@ -60,3 +60,5 @@ var flickr_search = {
             format(bundle);
             }
 };
+
+addSearch(flickr_search);
