@@ -1,3 +1,8 @@
+body {
+  position: absolute;
+  top: 45px;
+}  
+
 #main-container {
   width: 768px;
   height: 1024px;
@@ -90,7 +95,7 @@
   -webkit-border-radius: 0 25px 25px 25px;
   -o-border-radius: 0 25px 25px 25px;
   border-radius: 0 25px 25px 25px;
-  background: #DDD;
+  background: #F00;
   font-family: Arial, Helvetica, sans-serif;
 }
 
