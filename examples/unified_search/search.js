@@ -57,7 +57,7 @@ function format(bundle){
                              Math.cos(long2-long1)) * R;
         
         
-        var scale_factor = dist/10;
+        var scale_factor = dist/5;
         
         geoObj.scale.x = scale_factor;
         geoObj.scale.y = scale_factor;
@@ -65,7 +65,7 @@ function format(bundle){
         
         
         var div1 = document.createElement("div");
-        div1.innerText = (JSON.stringify(geoObj.scale));
+        div1.innerText = (JSON.stringify(geoObj.rotation));
         div1.style.backgroundColor="#FF0000";
         
         var cobj = new THREE.CSSObject(div1);
