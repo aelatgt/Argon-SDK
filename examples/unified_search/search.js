@@ -77,22 +77,5 @@ function format(bundle){
         ARGON.World.add(geoObj);
         geoObjs.push(geoObj);
     }
-    window.webkitRequestAnimationFrame(billboard);
 }
 
-var blob = new Blob([
-    "onmessage = function(e) { window.webkitRequestAnimationFrame(billboard) }; " +
-    "function billboard(){" + 
-        "for(var i = 0, length = geoObjs.length; i < length; i++){" + 
-            "var obj = geoObjs[i];" + 
-            "obj.lookAt(ARGON.threeCamera.position);" +
-        "}" +
-        "window.webkitRequestAnimationFrame(billboard);" +
-    "};"]);
-    
-var blobURL = window.URL.createObjectURL(blob);
-
-var worker = new Worker(blobURL);
-worker.onmessage = function(e){};
-
-worker.postMessage();
