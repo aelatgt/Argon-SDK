@@ -49,6 +49,8 @@ function format(bundle){
         //cssObj.rotation.y = Math.atan((long2 - long1)/(lat2 - lat1));
         //cssObj.lookAt(new THREE.Vector3());
         
+        cssObj.lookAt(ARGON.threeCameraDolly.position);
+        
         
         // Can't get GeoObjects to work nicely right now
         // Handling pure CSSObjects will be easier for now
@@ -70,12 +72,14 @@ function format(bundle){
         var cobj = new THREE.CSSObject(div1);
         cobj.width = 200;
         cobj.height = 200;
-        cobj.position.z = -1000;
+        cobj.position.x = -1000;
+        cobj.position.z = 1000;
+        cobj.lookAt(ARGON.threeCameraDolly.position);
         
         ARGON.World.add(cobj);
         
         ARGON.World.add(geoObj);
-        geoObjs.push(geoObj);
+        geoObjs.push(cssObj);
     }
 }
 

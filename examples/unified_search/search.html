@@ -19,8 +19,9 @@
             for(var i = 0, length = geoObjs.length; i < length; i++){
                 var obj = geoObjs[i];
                 //JSLOG.log("# objs = " + geoObjs.length);
-                obj.lookAt( ARGON.threeCameraDolly.position );
-                obj.rotation.y = 80 * Math.PI / 180;
+                obj.lookAt(ARGON.threeCameraDolly.position);
+                //obj.applyMatrix( 
+                    //new THREE.Matrix4().makeRotationX( Math.PI / 2 ) );
             }
         },
         
