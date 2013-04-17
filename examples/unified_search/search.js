@@ -6,7 +6,7 @@ var page = 1;
 
 function addSearch(search){
     searches.push(search);
-    JSLOG.log("Adding search: " + search.name);
+    //JSLOG.log("Adding search: " + search.name);
 }
 
 function runsearch(keyword){
@@ -19,13 +19,15 @@ function runsearch(keyword){
 function format(bundle){
     for(var i = 0, length = bundle.length; i < length; i++){
         item = bundle[i];
+        JSLOG.log("Formatting to AR mode.");
+        //JSLOG.log(item.body);
         var div = document.createElement("div");
         div.style.width = "300px";
         div.style.height = "110px";
         div.innerHTML = item.body;
-        var cssObj = new THREE.CSSObject(item.body);
-        cssObj.width = 200;
-        cssObj.height = 200;
+        var cssObj = new THREE.CSSObject(div);
+        cssObj.width = 300;
+        cssObj.height = 110;
         cssObj.position.z = -1000;
         
         //var geoObj = new ARGON.createGeoObject(item.lat, item.long, 0);
