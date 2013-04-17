@@ -29,7 +29,7 @@ var flickr_search = {
                 var scriptEl = document.getElementById('injected');
                 //scriptEl.parentNode.removeChild(scriptEl);
                 var bundle = [];
-                JSLOG.log(data.photos.photo.length);
+                //JSLOG.log(data.photos.photo.length);
                 for(var i = 0, length = data.photos.photo.length; i < length; i++) {
                     var innerhtml = Handlebars.templates['Flickr'](data.photos.photo[i]);
                     
