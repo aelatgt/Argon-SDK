@@ -19,14 +19,18 @@ function runsearch(keyword){
 function format(bundle){
     for(var i = 0, length = bundle.length; i < length; i++){
         item = bundle[i];
-        cssObj = new THREE.CSSObject(item.div);
+        var div = document.createElement("div");
+        div.style.width = "300px";
+        div.style.height = "110px";
+        div.innerHTML = item.body;
+        var cssObj = new THREE.CSSObject(item.body);
         cssObj.width = 200;
         cssObj.height = 200;
         cssObj.position.z = -1000;
         
-        geoObj = new ARGON.createGeoObject(item.lat, item.long, 0);
-        geoObj.add(cssObj);
+        //var geoObj = new ARGON.createGeoObject(item.lat, item.long, 0);
+        //geoObj.add(cssObj);
         
-        ARGON.World.add(geoObj);
+        ARGON.World.add(cssObj);
     }
 }

@@ -33,10 +33,10 @@ var flickr_search = {
                  for(var i = 0, length = data.photos.photo.length; i < length; i++) {
                      var innerhtml = Handlebars.templates['Flickr'](data.photos.photo[i]);
                      
-                     var div = document.createElement("div");
-                     div.style.width = "300px";
-                     div.style.height = "110px";
-                     div.innerHTML = innerhtml;
+                     //var div = document.createElement("div");
+                     //div.style.width = "300px";
+                     //div.style.height = "110px";
+                     //div.innerHTML = innerhtml;
 
                      //var cssObj = THREE.CSSObject(div);
                      //cssObj.width = 300;
@@ -49,7 +49,7 @@ var flickr_search = {
                      var long = data.photos.photo[i].longitude;
                      JSLOG.log("(" + lat + ", " + long + ")");
                      
-                     bundle.push({"body":div, "lat":lat, "long":long});
+                     bundle.push({"body":innerhtml, "lat":lat, "long":long});
 
                      //var geoObj = ARGON.createGeoObject(lat, long, 0);
                      //geoObj.add(cssObj);
